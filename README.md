@@ -63,7 +63,7 @@ Interfaz personal del corredor con información de actividad.
 
 Mira una demostración completa de todas las funcionalidades de la aplicación:
 
-[![Ver Video de Demostración](https://img.shields.io/badge/📹%20Ver%20Video-YouTube-red?style=for-the-badge)]([https://youtube.com/tu_video_aqui](https://youtu.be/pcjo43Vh_-I?si=tMBYzx90_rjEHIyv))
+[![Ver Video de Demostración](https://img.shields.io/badge/📹%20Ver%20Video-YouTube-red?style=for-the-badge)](https://youtu.be/pcjo43Vh_-I?si=tMBYzx90_rjEHIyv)
 
 
 ---
