@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bg_gradient_run">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Cuenta"
+            android:textColor="#FFFFFF"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Únete al equipo RunLiebre"
+            android:textColor="#E0E0E0"
+            android:textSize="16sp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="32dp"
+            android:background="#FFFFFF">
+
+            <EditText
+                android:id="@+id/etNombre"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input_modern"
+                android:hint="Nombre"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etApellido"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input_modern"
+                android:hint="Apellido"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etTelefono"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input_modern"
+                android:hint="Teléfono"
+                android:inputType="phone"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etFechaNacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input_modern"
+                android:hint="Fecha de Nacimiento"
+                android:paddingStart="16dp"
+                android:focusable="false"
+                android:clickable="true"
+                android:drawableEnd="@android:drawable/ic_menu_my_calendar"
+                android:paddingEnd="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/etEmailReg"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/bg_input_modern"
+                android:hint="Correo Electrónico"
+                android:inputType="textEmailAddress"
+                android:paddingStart="16dp"
+                android:layout_marginBottom="12dp"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:passwordToggleEnabled="true"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="none">
+
+                <EditText
+                    android:id="@+id/etPasswordReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_input_modern"
+                    android:hint="Contraseña"
+                    android:inputType="textPassword"
+                    android:paddingStart="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                app:passwordToggleEnabled="true"
+                app:hintEnabled="false"
+                app:boxBackgroundMode="none">
+
+                <EditText
+                    android:id="@+id/etPasswordConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/bg_input_modern"
+                    android:hint="Confirmar Contraseña"
+                    android:inputType="textPassword"
+                    android:paddingStart="16dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:text="REGISTRARME"
+                android:textStyle="bold"
+                android:backgroundTint="#43A047"
+                app:cornerRadius="12dp"/>
+
+            <TextView
+                android:id="@+id/tvLoginLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Ya tengo cuenta"
+                android:gravity="center"
+                android:textColor="#43A047"
+                android:textStyle="bold"
+                android:padding="20dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

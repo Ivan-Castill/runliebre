@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "665892155830",
+    "project_id": "runliebre-1d304",
+    "storage_bucket": "runliebre-1d304.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665892155830:android:4838b97a923ad2dfe39117",
+        "android_client_info": {
+          "package_name": "com.example.runliebre"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAJXWFlaw5bRiiEbI8PFjrlyU_B8Rj1ts"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
