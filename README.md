@@ -4,6 +4,16 @@
 
 ![Kotlin](https://img.shields.io/badge/Kotlin-1.9.0-purple) ![Firebase](https://img.shields.io/badge/Firebase-Auth%20%7C%20Firestore-orange) ![Platform](https://img.shields.io/badge/Platform-Android-green) ![License](https://img.shields.io/badge/License-MIT-blue)
 
+## Credenciales
+| Admin | 
+|:---:|
+   admin@runliebre.com
+   contraseña: 123456
+| Runner |
+|:---:|
+   ivan2003castillo12345@gmail.com
+   contraseña: Azul2003%#
+
 ## 📱 Características Principales
 
 * **Rastreo GPS en Tiempo Real:** Visualización de corredores en el mapa usando `osmdroid` (OpenStreetMap).
