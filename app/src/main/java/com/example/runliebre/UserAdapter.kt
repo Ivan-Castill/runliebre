@@ -9,18 +9,18 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-// Modelo de datos
+
 data class User(
     val id: String,
     val nombre: String,
     val apellido: String = "",
     val email: String,
     val telefono: String = "",
-    val rol: String = "runner", // Ahora guardamos el rol
+    val rol: String = "runner",
     val fechaNacimiento: String = "",
     val isActive: Boolean = true
 )
-// CORRECCIÓN AQUÍ: Usar paréntesis () para el constructor, no llaves {}
+
 class UserAdapter(
     private var users: List<User>,
     private val onEditClick: (User) -> Unit,
@@ -50,13 +50,13 @@ class UserAdapter(
         holder.tvEmail.text = user.email
         holder.tvRole.text = user.rol.uppercase()
 
-        // Diferenciar visualmente Admin de Runner
+
         if (user.rol == "admin") {
-            holder.ivIcon.setImageResource(android.R.drawable.ic_lock_idle_lock) // Icono de candado/admin
-            holder.tvRole.setBackgroundColor(Color.parseColor("#FFD700")) // Dorado
+            holder.ivIcon.setImageResource(android.R.drawable.ic_lock_idle_lock)
+            holder.tvRole.setBackgroundColor(Color.parseColor("#FFD700"))
         } else {
-            holder.ivIcon.setImageResource(R.drawable.ic_people) // Icono normal (asegúrate de tenerlo)
-            holder.tvRole.setBackgroundColor(Color.parseColor("#E0E0E0")) // Gris
+            holder.ivIcon.setImageResource(R.drawable.ic_people)
+            holder.tvRole.setBackgroundColor(Color.parseColor("#E0E0E0"))
         }
 
         if (user.isActive) {

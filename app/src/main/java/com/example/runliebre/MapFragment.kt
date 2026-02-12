@@ -35,10 +35,10 @@ class MapFragment : Fragment() {
         map.setTileSource(TileSourceFactory.MAPNIK)
         map.setMultiTouchControls(true)
 
-        // --- CORRECCIÓN 1: INICIO EN QUITO (NO EN EL MAR) ---
+
         val mapController = map.controller
-        mapController.setZoom(14.0) // Un zoom nivel ciudad
-        val quitoPoint = GeoPoint(-0.1807, -78.4678) // Coordenadas de Quito
+        mapController.setZoom(14.0)
+        val quitoPoint = GeoPoint(-0.1807, -78.4678)
         mapController.setCenter(quitoPoint)
 
         Toast.makeText(context, "Buscando corredores...", Toast.LENGTH_SHORT).show()
@@ -48,42 +48,42 @@ class MapFragment : Fragment() {
 
     private fun escucharCorredores() {
         firestoreListener = db.collection("users")
-            //.whereEqualTo("rol", "runner") // Si quieres ver TODOS (incluido admins) quita esta línea
+
             .addSnapshotListener { snapshots, e ->
                 if (e != null) return@addSnapshotListener
 
                 if (snapshots != null) {
-                    val puntosActivos = ArrayList<GeoPoint>() // Lista para guardar ubicaciones y hacer zoom
+                    val puntosActivos = ArrayList<GeoPoint>()
 
                     for (doc in snapshots.documents) {
-                        // Solo mostramos si tiene "isActive" true (opcional) o si es runner
+
                         val rol = doc.getString("rol") ?: ""
 
-                        // Coordenadas
+
                         val lat = doc.getDouble("latitud") ?: 0.0
                         val lng = doc.getDouble("longitud") ?: 0.0
                         val nombre = doc.getString("nombre") ?: "Usuario"
                         val uid = doc.id
 
-                        // Filtramos para no mostrar gente en el mar (0,0)
+
                         if (lat != 0.0 && lng != 0.0) {
                             val nuevaPosicion = GeoPoint(lat, lng)
                             puntosActivos.add(nuevaPosicion)
 
                             if (markersMap.containsKey(uid)) {
-                                // Mover marcador existente
+
                                 val marcador = markersMap[uid]
                                 marcador?.position = nuevaPosicion
-                                marcador?.snippet = rol // Poner el rol en la descripción
+                                marcador?.snippet = rol
                                 marcador?.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
                             } else {
-                                // Crear nuevo marcador
+
                                 val nuevoMarcador = Marker(map)
                                 nuevoMarcador.position = nuevaPosicion
                                 nuevoMarcador.title = nombre
                                 nuevoMarcador.snippet = rol
 
-                                // Icono personalizado
+
                                 val icon = androidx.core.content.ContextCompat.getDrawable(requireContext(), R.drawable.ic_runner_pin)
                                 nuevoMarcador.icon = icon
                                 nuevoMarcador.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
@@ -94,18 +94,16 @@ class MapFragment : Fragment() {
                         }
                     }
 
-                    map.invalidate() // Redibujar mapa
+                    map.invalidate()
 
-                    // --- CORRECCIÓN 2: ZOOM AUTOMÁTICO A LOS CORREDORES ---
+
                     if (puntosActivos.isNotEmpty()) {
-                        // Si es la primera vez que cargamos o hay nuevos, ajustamos la cámara
-                        // (Puedes quitar este if si quieres que SIEMPRE los siga)
+
                         if (puntosActivos.size == 1) {
                             map.controller.animateTo(puntosActivos[0])
                         } else {
-                            // Si hay varios, hacemos zoom para que quepan todos en la pantalla
+
                             val box = BoundingBox.fromGeoPoints(puntosActivos)
-                            // Agregamos un margen para que no queden pegados al borde
                             map.zoomToBoundingBox(box, true, 100)
                         }
                     }

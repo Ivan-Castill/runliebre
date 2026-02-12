@@ -25,7 +25,6 @@ import android.widget.TextView
 
 
 class MainActivity : ComponentActivity() {
-    // Declaramos las instancias de Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
@@ -33,29 +32,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Inicializamos Firebase
+
         auth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
 
-        // Referencias a los elementos visuales
-        // Asegúrate que los IDs coincidan con tu activity_main.xml
+
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val tvForgot = findViewById<TextView>(R.id.tvForgotPassword)
         val tvRegister = findViewById<TextView>(R.id.tvRegister)
 
-        // Ir a Recuperar Contraseña
+        //Ir a Recuperar Contraseña
         tvForgot.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
 
-        // Ir a Registrarse
+        //Ir a Registrarse
         tvRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // Botón Login
+
         btnLogin.setOnClickListener {
             val email = etEmail.text.toString()
             val pass = etPassword.text.toString()
@@ -72,7 +70,7 @@ class MainActivity : ComponentActivity() {
         auth.signInWithEmailAndPassword(email, pass)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    // Login correcto, ahora verificamos el ROL
+   // verificamos el ROL
                     checkUserRole(task.result.user?.uid)
                 } else {
                     Toast.makeText(this, "Error: ${task.exception?.message}", Toast.LENGTH_LONG).show()
@@ -82,21 +80,18 @@ class MainActivity : ComponentActivity() {
 
     private fun checkUserRole(uid: String?) {
         if (uid == null) return
-
-        // Buscamos el documento del usuario en la colección "users"
         db.collection("users").document(uid).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     val rol = document.getString("rol")
 
                     if (rol == "admin") {
-                        // Ir a pantalla de Admin
+
                         startActivity(Intent(this, AdminActivity::class.java))
                     } else {
-                        // Ir a pantalla de Corredor
                         startActivity(Intent(this, RunnerActivity::class.java))
                     }
-                    finish() // Cierra el Login para que no puedan volver atrás
+                    finish()
                 } else {
                     Toast.makeText(this, "Usuario no encontrado en base de datos", Toast.LENGTH_SHORT).show()
                 }

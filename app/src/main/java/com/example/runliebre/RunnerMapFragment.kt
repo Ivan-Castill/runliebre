@@ -18,10 +18,10 @@ class RunnerMapFragment : Fragment() {
     private lateinit var locationOverlay: MyLocationNewOverlay
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedState: Bundle?): View? {
-        // Necesario para OSM
+
         Configuration.getInstance().load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()))
 
-        // Usamos un layout simple que solo tenga el mapa y el texto de estado
+
         return inflater.inflate(R.layout.fragment_runner_map, container, false)
     }
 
@@ -33,7 +33,7 @@ class RunnerMapFragment : Fragment() {
         map.setMultiTouchControls(true)
         map.controller.setZoom(18.0)
 
-        // Configurar punto azul
+
         locationOverlay = MyLocationNewOverlay(GpsMyLocationProvider(context), map)
         locationOverlay.enableMyLocation()
         locationOverlay.enableFollowLocation()

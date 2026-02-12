@@ -21,7 +21,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Referencias
+
         val etNombre = findViewById<EditText>(R.id.etNombre)
         val etApellido = findViewById<EditText>(R.id.etApellido)
         val etTelefono = findViewById<EditText>(R.id.etTelefono)
@@ -29,13 +29,12 @@ class RegisterActivity : AppCompatActivity() {
         val etEmail = findViewById<EditText>(R.id.etEmailReg)
         val etPass = findViewById<EditText>(R.id.etPasswordReg)
 
-        // 1. REFERENCIA AL NUEVO CAMPO
-        val etPassConfirm = findViewById<EditText>(R.id.etPasswordConfirm) // <--- NUEVO
+        val etPassConfirm = findViewById<EditText>(R.id.etPasswordConfirm)
 
         val btnRegistrar = findViewById<Button>(R.id.btnRegistrar)
         val tvLoginLink = findViewById<TextView>(R.id.tvLoginLink)
 
-        // Configuración del calendario
+
         etFecha.isFocusable = false
         etFecha.isClickable = true
         etFecha.setOnClickListener { mostrarSelectorFecha(etFecha) }
@@ -47,21 +46,21 @@ class RegisterActivity : AppCompatActivity() {
             val fecha = etFecha.text.toString().trim()
             val email = etEmail.text.toString().trim()
             val pass = etPass.text.toString()
-            val passConfirm = etPassConfirm.text.toString() // <--- OBTENER CONFIRMACIÓN
+            val passConfirm = etPassConfirm.text.toString()
 
             if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty() || pass.isEmpty()) {
                 Toast.makeText(this, "Completa los campos obligatorios", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // 2. VALIDAR QUE COINCIDAN
+
             if (pass != passConfirm) {
                 etPassConfirm.error = "Las contraseñas no coinciden"
                 Toast.makeText(this, "Las contraseñas no son iguales", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Validar seguridad
+
             if (!esPasswordSegura(pass)) {
                 return@setOnClickListener
             }
@@ -72,7 +71,7 @@ class RegisterActivity : AppCompatActivity() {
         tvLoginLink.setOnClickListener { finish() }
     }
 
-    // Función para mostrar el calendario
+
     private fun mostrarSelectorFecha(editText: EditText) {
         val calendario = Calendar.getInstance()
         val year = calendario.get(Calendar.YEAR)

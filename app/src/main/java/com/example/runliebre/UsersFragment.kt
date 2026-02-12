@@ -23,8 +23,7 @@ class UsersFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_users, container, false)
 
-        // Agregar botón flotante para "Añadir Admin/Usuario" en el XML de fragment_users si quieres
-        // Opcional: Podrías añadir un FAB en el XML y configurarlo aquí.
+
 
         val recycler = view.findViewById<RecyclerView>(R.id.rvUsers)
         recycler.layoutManager = LinearLayoutManager(context)
@@ -45,7 +44,7 @@ class UsersFragment : Fragment() {
     }
 
     private fun loadUsers() {
-        // QUITAMOS EL FILTRO .whereEqualTo("rol", "runner") para ver a TODOS (incluido Admins)
+
         db.collection("users")
             .addSnapshotListener { snapshots, e ->
                 if (e != null || snapshots == null) return@addSnapshotListener
@@ -66,7 +65,7 @@ class UsersFragment : Fragment() {
             }
     }
 
-    // --- DIÁLOGOS DE SEGURIDAD ---
+
     private fun confirmAction(title: String, message: String, onConfirm: () -> Unit) {
         AlertDialog.Builder(requireContext())
             .setTitle(title)
@@ -82,28 +81,26 @@ class UsersFragment : Fragment() {
     }
 
     private fun deleteUser(user: User) {
-        // Nota: Esto borra de Firestore. Borrar de Auth requiere Cloud Functions o re-autenticación.
-        // Para la tarea, borrar de Firestore suele ser suficiente para que "deje de existir" en la app.
+
         db.collection("users").document(user.id).delete()
             .addOnSuccessListener { Toast.makeText(context, "Usuario eliminado", Toast.LENGTH_SHORT).show() }
     }
 
-    // --- DIÁLOGO DE EDICIÓN / AGREGAR ---
+
     private fun showEditUserDialog(user: User) {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_edit_user, null)
 
-        // Referencias del layout del diálogo (Tendremos que crearlo ahora)
+
         val etNombre = dialogView.findViewById<EditText>(R.id.etEditNombre)
         val etApellido = dialogView.findViewById<EditText>(R.id.etEditApellido)
         val etTelefono = dialogView.findViewById<EditText>(R.id.etEditTelefono)
         val spinnerRol = dialogView.findViewById<Spinner>(R.id.spinnerRol)
 
-        // Llenar datos
         etNombre.setText(user.nombre)
         etApellido.setText(user.apellido)
         etTelefono.setText(user.telefono)
 
-        // Configurar Spinner de Roles
+
         val roles = arrayOf("runner", "admin")
         val adapterSpinner = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, roles)
         spinnerRol.adapter = adapterSpinner

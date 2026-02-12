@@ -14,26 +14,25 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LocationService : Service() {
-    // Variables para la ubicación y Firebase
+    //Variables para la ubicación y Firebase
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    // Configuración: Actualizar cada 10 segundos para no saturar
+    //Actualizar cada 10 segundos para no saturar
     private val UPDATE_INTERVAL: Long = 10000
     private val FASTEST_INTERVAL: Long = 5000
 
     override fun onCreate() {
         super.onCreate()
-        // Inicializamos el cliente de ubicación
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
-        // Definimos qué hacer cuando llega una nueva coordenada
+
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 for (location in locationResult.locations) {
-                    // ¡Aquí tenemos la coordenada nueva!
                     saveLocationToFirebase(location)
                 }
             }
@@ -42,7 +41,7 @@ class LocationService : Service() {
 
     // Este método se ejecuta cuando llamamos a "startService" desde la Activity
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        // 1. Crear la notificación obligatoria
+        //Crear la notificación obligatoria
         createNotificationChannel()
         val notification: Notification = NotificationCompat.Builder(this, "CHANNEL_LOCATION")
             .setContentTitle("RunLiebre Activo")
@@ -51,10 +50,10 @@ class LocationService : Service() {
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .build()
 
-        // 2. Poner el servicio en "Primer Plano" (Esto evita que Android lo mate)
+        //Poner el servicio en "Primer Plano"
         startForeground(1, notification)
 
-        // 3. Empezar a pedir coordenadas
+        //Empezar a pedir coordenadas
         requestLocationUpdates()
 
         return START_STICKY // Si el sistema mata el servicio, intenta revivirlo
@@ -67,7 +66,6 @@ class LocationService : Service() {
             setMinUpdateIntervalMillis(FASTEST_INTERVAL)
         }.build()
 
-        // Verificamos permisos (aunque ya los habremos pedido en la Activity)
         try {
             fusedLocationClient.requestLocationUpdates(
                 locationRequest,
@@ -75,30 +73,28 @@ class LocationService : Service() {
                 Looper.getMainLooper()
             )
         } catch (e: SecurityException) {
-            // Si no hay permisos, no podemos hacer nada aquí
+
         }
     }
 
     private fun saveLocationToFirebase(location: Location) {
         val uid = auth.currentUser?.uid ?: return
 
-        // Creamos el objeto con los datos a actualizar
         val updateData = hashMapOf<String, Any>(
             "latitud" to location.latitude,
             "longitud" to location.longitude,
             "lastUpdate" to System.currentTimeMillis() // Para saber si es reciente
         )
 
-        // Enviamos a Firestore
+
         db.collection("users").document(uid)
             .update(updateData)
             .addOnFailureListener { e ->
-                // Opcional: Manejar error
             }
     }
 
     private fun createNotificationChannel() {
-        // Necesario para Android 8.0+
+
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val serviceChannel = NotificationChannel(
                 "CHANNEL_LOCATION",
@@ -112,11 +108,11 @@ class LocationService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        // Detener rastreo al cerrar sesión o parar el servicio
+        //Detener rastreo al cerrar sesión o parar el servicio
         fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return null // No necesitamos enlazarlo, es un servicio "started"
+        return null
     }
 }

@@ -25,7 +25,7 @@ class RunnerProfileFragment : Fragment() {
         val tvRole = view.findViewById<TextView>(R.id.tvRole)
         val btnLogout = view.findViewById<Button>(R.id.btnLogoutRunner)
 
-        // Cargar datos
+        //Cargar datos
         val uid = auth.currentUser?.uid
         if (uid != null) {
             db.collection("users").document(uid).get().addOnSuccessListener { doc ->
@@ -39,9 +39,9 @@ class RunnerProfileFragment : Fragment() {
             }
         }
 
-        // Logout
+
         btnLogout.setOnClickListener {
-            // Detenemos el servicio llamando al método de la Activity
+
             (activity as? RunnerActivity)?.stopLocationService()
 
             auth.signOut()

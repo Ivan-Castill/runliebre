@@ -18,15 +18,15 @@ class RunnerActivity : AppCompatActivity() {
 
         val bottomNav = findViewById<BottomNavigationView>(R.id.runnerBottomNav)
 
-        // 1. Iniciar Rastreo Automático (Lógica de permisos y servicio)
+
         checkPermissionsAndStart()
 
-        // 2. Cargar Mapa por defecto
+
         if (savedInstanceState == null) {
             loadFragment(RunnerMapFragment())
         }
 
-        // 3. Navegación
+
         bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_run_map -> loadFragment(RunnerMapFragment())
@@ -42,7 +42,7 @@ class RunnerActivity : AppCompatActivity() {
             .commit()
     }
 
-    // --- LÓGICA DE SERVICIO GPS (La mantenemos aquí para que sea persistente) ---
+
     private fun checkPermissionsAndStart() {
         val permissions = mutableListOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
@@ -67,7 +67,7 @@ class RunnerActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 100 && grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
             startLocationService()
-            // Recargamos el mapa para que pille los permisos nuevos
+
             loadFragment(RunnerMapFragment())
         } else {
             Toast.makeText(this, "Se necesitan permisos para rastrear", Toast.LENGTH_LONG).show()
@@ -83,7 +83,7 @@ class RunnerActivity : AppCompatActivity() {
         }
     }
 
-    // Método público para que el Fragmento de Perfil pueda llamarlo al hacer Logout
+
     fun stopLocationService() {
         val intent = Intent(this, LocationService::class.java)
         stopService(intent)

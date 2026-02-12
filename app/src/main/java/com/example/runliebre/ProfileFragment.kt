@@ -13,7 +13,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedState: Bundle?): View? {
-        // Inflar el diseño del perfil
+
         val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         val auth = FirebaseAuth.getInstance()
@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
         val tvEmail = view.findViewById<TextView>(R.id.tvAdminEmail)
         val btnLogout = view.findViewById<Button>(R.id.btnLogout)
 
-        // Cargar datos del Admin actual
+
         val uid = auth.currentUser?.uid
         if (uid != null) {
             db.collection("users").document(uid).get().addOnSuccessListener {
@@ -32,11 +32,11 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        // Botón de Cerrar Sesión
+
         btnLogout.setOnClickListener {
             auth.signOut()
             val intent = Intent(context, MainActivity::class.java)
-            // Esto borra el historial para que no puedan volver atrás con el botón "Atrás"
+
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
