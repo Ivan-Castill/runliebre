@@ -14,6 +14,20 @@
    ivan2003castillo12345@gmail.com
    contraseña: Azul2003%#
 
+## Despliege
+
+La aplicación móvil ha sido subida a la tienda de aplicaciones Aptoide. A fecha de hoy, 12 de febrero de 2026 (10:43 AM), la aplicación se encuentra en proceso de revisión por parte de la plataforma.
+Tan pronto como finalice la revisión y la aplicación sea aprobada, se actualizará este repositorio incluyendo el enlace directo para su descarga.
+
+|Capturas del despliqge en Aptoide |
+|:---:|
+
+<img width="1843" height="638" alt="image" src="https://github.com/user-attachments/assets/46442706-9f7e-49b9-a6dc-9bfa97009640" />
+
+
+
+ 
+
 ## 📱 Características Principales
 
 * **Rastreo GPS en Tiempo Real:** Visualización de corredores en el mapa usando `osmdroid` (OpenStreetMap).
